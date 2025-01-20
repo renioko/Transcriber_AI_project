@@ -27,7 +27,7 @@ class Transcribed(Transformer):
     def transcribe_audio(self) -> None:
         """loads audio file, connects with whisper, 
         transcribes audio file into a text and prints it"""
-        Transformer().load_api_key()
+        # Transformer().load_api_key()
 
         with open(self.inputfile, 'rb') as audio_file:
             transcription = openai.audio.transcriptions.create(
