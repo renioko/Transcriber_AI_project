@@ -26,8 +26,9 @@ class Transcribed(Transformer):
             print(e)
         self.inputfile = inputfile
    
-    def transcribe_audio(self) -> None:
-        """Transcribes the given audio file and prints the text."""
+    def transcribe_audio(self, output_file: str=None) -> str:
+        """Transcribes the given audio file and returns text.
+        //prints the text or saves it to a file.//"""
         try:
             with open(self.inputfile, 'rb') as audio_file:
                 transcription = openai.audio.transcriptions.create(
@@ -35,18 +36,41 @@ class Transcribed(Transformer):
             file=audio_file,
             response_format='text'
         )
-            print(transcription)
+            return transcription
+
+        except FileNotFoundError:
+            print("Audio file not found.")
+        except openai.OpenAIError as e:
+            print(f"Problem with OpenAI, transcription failed: {e}")
         except Exception as e:
             print(f'Failed transcription: {e}')
-        # ubgrade: mmozna wybrac print, save into a file or return
+
+def transcription_handling(transcription: str, output_file: str=None) -> None:
+    """ Saves transcription into a file if path given, else prints transcription."""
+        
+    if output_file:
+        try:
+            with open(output_file, 'w') as writer:
+                writer.write(transcription) # (transcription.text) ?
+            print("Transcription saved.")
+        except FileNotFoundError:
+            print("Error, output file not found. Please enter correct path.")
+    else:
+        print(f"Transcription: {transcription}")
 
 def main():
-    filename = "C:\\Users\\renio\\Documents\\Recordings\\Text to transcribe2.mp3"
+    # filename = "C:\\Users\\renio\\Documents\\Recordings\\Text to transcribe2.mp3"
+    filename = input("Enter path to audio: ")
+
     try:
         transcribed = Transcribed(filename)
-        transcribed.transcribe_audio()
+        text = transcribed.transcribe_audio()
     except ValueError:
         print("Please set the API key in your environment and try again.")
 
+    transcription_handling(text, output_file=None)
+
 if __name__ == '__main__':
     main()
+
+        # ubgrade: choose to print, save into a file or return - maybe with click library
