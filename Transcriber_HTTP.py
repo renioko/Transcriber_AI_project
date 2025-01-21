@@ -65,14 +65,14 @@ class Transcription:
             writer.write(response.content)
         print(f'transcription have been saved into: {outputfile}')
 
-    def post_audio_and_get_trqnscription(self) -> None:
+    def post_audio_and_get_transcription(self) -> None:
         
         file = self.inputfile
         operation = self.operation
         outputfile = self.outputfile
 
         url = 'https://api.openai.com/v1/audio/transcriptions'
-        # csv 
+    
         headers = {
         "Authorization": f"Bearer {self.api_key}"
         }
@@ -106,12 +106,21 @@ class Transcription:
             
 
 if __name__ == '__main__':
-    file = r"C:\Users\renio\Documents\Recordings\Text to transcribe.mp3"
-    outputfile = r"C:\Users\renio\Documents\Python\Projects\Text_transcribed.txt"
+    # file = "C:/Users/renio/Documents/Recordings/Text-to -transcribe.mp3"
+    if len(sys.argv) > 2:
+        file = sys.argv[1]
+    else:
+        file = "C:/Users/renio/Documents/Recordings/Text-to-transcribe.mp3"
+
+    if len(sys.argv) > 3:
+        outputfile = sys.argv[2]
+    else:
+        outputfile = r"C:\Users\renio\Documents\Python\Projects\Text_transcribed.txt"
+    # outputfile = "C:/Users/renio/Documents/Python/Projects/Text_transcribed2.txt"
 
     t = Transcription(file, outputfile=outputfile, operation='transcription')
 
-    t.post_audio_and_get_trqnscription()
+    t.post_audio_and_get_transcription()
 
 
 
