@@ -1,5 +1,6 @@
 from load_api_key import load_api_key
 import openai
+import sys
 
 """Transcriber can transcribe audio file in formats:  mp3, mp4, mpeg, mpga, wav, webm into a text."""
 
@@ -14,15 +15,15 @@ def load_and_and_transcript_audio(filename: str) -> None:
     response_format='text'
 )
     print(transcription)
-    # ubgrade: mmozna wybrac print, save into a file or return
-
-    # dry i kiss
-    # porady co usprawnic w kodzie, tylko porady
-    # dodam streszczenie
 
 
 def main():
-    filename = "C:\\Users\\renio\\Documents\\Recordings\\Text to transcribe.mp3"
+
+    if len(sys.argv) > 2:
+        filename = sys.argv[1]
+    else:
+        filename = "C:/Users/renio/Documents/Recordings/Text-to-transcribe.mp3"
+
     load_and_and_transcript_audio(filename)
 
 if __name__ == '__main__':
@@ -31,16 +32,3 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-# jestem kobietą, więc jak mówię to podaję dużo informacji kontekstowych, ale dopóki nie sformułuję pytania to go nie zadałam. 
-
-# * FUNKCJA - zapisywanie do pliku, 
-# * nowa funkcja - translacja
-# klasa - plik poczatkowy, plik końcowy lub druk if None, transkrypcja lub translacja
-# * dzieki klasie mozliwosc poddawania wielu plików tym procedurom
