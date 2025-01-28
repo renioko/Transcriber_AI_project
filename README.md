@@ -134,5 +134,5 @@ MIT License
 If you like to use my code just please let me know - I'd love to see how you improve it :-)
 
 ### Contact
-email: renatta.gasior@gmail.com
+email: regasior@gmail.com
 GitHub: https://github.com/renioko
